@@ -16,7 +16,7 @@ class LandingPageWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthBloc(),
-      child: LandingPage(),
+      child: const LandingPage(),
     );
   }
 }

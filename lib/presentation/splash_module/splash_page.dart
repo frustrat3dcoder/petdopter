@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petdopter/data/data.dart';
-import 'package:petdopter/domain/entities/user_entity.dart';
-import 'package:petdopter/presentation/dashboard_module/dashboard_page.dart';
-import 'package:petdopter/presentation/landing_module/landing_page.dart';
 import 'package:petdopter/utils/app_static_values/app_color_pallete.dart';
 import 'package:petdopter/utils/extensions/extensions.dart';
 import 'package:petdopter/utils/size_config.dart';
@@ -14,17 +9,7 @@ import 'package:petdopter/utils/size_config.dart';
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
 
-//   @override
-//   State<SplashScreen> createState() => _SplashScreenState();
-// }
-
-// class _SplashScreenState extends State<SplashScreen> {
   final HiveService hiveService = di<HiveService>();
-
-  // void initState() {
-  //   // checkAuthSession();
-  //   super.initState();
-  // }
 
   checkAuthSession(BuildContext buildContext) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
