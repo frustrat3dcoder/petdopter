@@ -1,21 +1,34 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petdopter/common_widgets/widgets.dart';
-import 'package:petdopter/data/services/themnotifier_services.dart';
+import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
-import 'package:petdopter/presentation/landing_module/widgets/slider.dart';
+import 'package:petdopter/presentation/landing_module/bloc/auth_bloc.dart';
 import 'package:petdopter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class Landing extends StatefulWidget {
-  const Landing({super.key});
+class LandingPageWrapper extends StatelessWidget {
+  const LandingPageWrapper({super.key});
 
   @override
-  State<Landing> createState() => _LandingState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: LandingPage(),
+    );
+  }
 }
 
-class _LandingState extends State<Landing> {
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
   int _currentPage = 0;
   final PageController _pageController = PageController();
   late Timer _timer;
@@ -86,8 +99,8 @@ class _LandingState extends State<Landing> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: (index == _currentPage)
-                      ? Colors.blue
-                      : Colors.blue.withOpacity(0.5)));
+                      ? Colors.orange[700]
+                      : Colors.white54));
         }));
   }
 
@@ -121,7 +134,8 @@ class _LandingState extends State<Landing> {
 
   Widget buildContinueButton(ThemeNotifier themeNotifier) {
     return customLargeButton(
-        onTap: () {},
+        onTap: () =>
+            BlocProvider.of<AuthBloc>(context).add(AuthenticateUserEvent()),
         marginVertical: 10.0,
         marginHorizontal: 15.0,
         text: 'Get Started',

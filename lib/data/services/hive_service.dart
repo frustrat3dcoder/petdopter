@@ -1,22 +1,21 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveService {
-  Future<void> init() async {
+  late Box box;
+  Future<void> init(String boxName) async {
     await Hive.initFlutter();
+    box = await Hive.openBox(boxName);
   }
 
-  void storeValue<T>(String boxName, String key, T value) {
-    final box = Hive.box<T>(boxName);
+  void storeValue(String boxName, String key, String value) {
     box.put(key, value);
   }
 
-  T? retrieveValue<T>(String boxName, String key) {
-    final box = Hive.box<T>(boxName);
+  retrieveValue(String boxName, String key) {
     return box.get(key);
   }
 
-  void deleteValue<T>(String boxName, String key) {
-    final box = Hive.box<T>(boxName);
+  void deleteValue(String boxName, String key) {
     box.delete(key);
   }
 
