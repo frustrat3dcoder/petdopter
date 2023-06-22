@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:petdopter/presentation/landing_module/landing_page.dart';
 import 'package:petdopter/presentation/splash_module/splash_page.dart';
 import 'package:petdopter/utils/app_static_values/app_static_values.dart';
@@ -41,11 +42,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     SizeConfig().init(context);
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Petdopter',
       theme: themeNotifier.getTheme(),
-      home: SplashScreen(),
+      initialRoute: Routes.splashScreen,
       debugShowCheckedModeBanner: false,
+      getPages: Pages.pages,
+      builder: (context, child) => child!,
     );
   }
 }

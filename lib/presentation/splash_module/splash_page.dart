@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/entities/user_entity.dart';
@@ -28,14 +29,9 @@ class SplashScreen extends StatelessWidget {
   checkAuthSession(BuildContext buildContext) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final result = await hiveService.retrieveValue('userEntity');
-      // if (result != null) {
 
-      Navigator.pushReplacement(
-          buildContext,
-          MaterialPageRoute(
-              builder: (buildContext) =>
-                  result == null ? LandingPageWrapper() : Dashboard()));
-      // }
+      Get.offNamed(
+          result != null ? Routes.dashboardScreen : Routes.landingScreen);
     });
   }
 
