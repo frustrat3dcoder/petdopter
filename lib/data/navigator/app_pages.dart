@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:petdopter/presentation/detail_module/detail_screen.dart';
 import 'package:petdopter/presentation/presentation.dart';
 
 part 'app_routes.dart';
@@ -17,5 +18,13 @@ class Pages {
         name: Routes.dashboardScreen,
         page: () => const Dashboard(),
         maintainState: true),
+    GetPage(
+      name: Routes.searchScreen,
+      page: () => const SearchScreenWrapper(),
+    ),
+    GetPage(
+      name: Routes.detailScreen,
+      page: () => const DetailScreenWrapper(),
+    ),
   ];
 }
