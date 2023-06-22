@@ -3,9 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petdopter/data/data.dart';
-import 'package:petdopter/presentation/dashboard_module/widgets/home_wrapper.dart';
-import 'package:petdopter/presentation/dashboard_module/widgets/profile_wrapper.dart';
-import 'package:petdopter/presentation/dashboard_module/widgets/search_wrapper.dart';
+import 'package:petdopter/presentation/presentation.dart';
 import 'package:petdopter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +17,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
-  List<Widget> pages = [
+  List<Widget> pages = const [
     HomeScreenWrapper(),
-    SearchScreenWrapper(),
+    AdoptionHistoryScreenWrapper(),
     ProfileScreenWrapper()
   ];
   @override
