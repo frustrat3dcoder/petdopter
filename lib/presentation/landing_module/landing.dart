@@ -1,0 +1,192 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:petdopter/common_widgets/widgets.dart';
+import 'package:petdopter/data/services/themnotifier_services.dart';
+import 'package:petdopter/domain/domain.dart';
+import 'package:petdopter/presentation/landing_module/widgets/slider.dart';
+import 'package:petdopter/utils/utils.dart';
+import 'package:provider/provider.dart';
+
+class Landing extends StatefulWidget {
+  const Landing({super.key});
+
+  @override
+  State<Landing> createState() => _LandingState();
+}
+
+class _LandingState extends State<Landing> {
+  int _currentPage = 0;
+  final PageController _pageController = PageController();
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    initTimer();
+  }
+
+  initTimer() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+        if (_currentPage != pages.length - 1) {
+          setState(() {
+            _currentPage += 1;
+          });
+        } else {
+          setState(() {
+            _currentPage = 0;
+          });
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+  //
+
+  @override
+  Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: themeNotifier.isDarkMode ? secondaryOrange : Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            children: [
+              20.h,
+              bannerPageView(),
+              const Spacer(),
+              bannerDescription(context),
+              10.h,
+              buildContinueButton(themeNotifier),
+              dotIndicatorWidget()
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dotIndicatorWidget() {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List<Widget>.generate(pages.length, (int index) {
+          return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: 10,
+              width: (index == _currentPage) ? 30 : 10,
+              margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: (index == _currentPage)
+                      ? Colors.blue
+                      : Colors.blue.withOpacity(0.5)));
+        }));
+  }
+
+  SizedBox bannerPageView() {
+    return SizedBox(
+      height: 400,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+              bottom: 0,
+              top: 0,
+              right: 0,
+              left: 0,
+              child: Image.asset(AppAssets.orangeBanner)),
+          PageView.builder(
+            onPageChanged: (value) {
+              setState(() {
+                _currentPage = value;
+              });
+            },
+            controller: _pageController,
+            clipBehavior: Clip.none,
+            itemCount: pages.length,
+            itemBuilder: (context, index) => pages[_currentPage],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildContinueButton(ThemeNotifier themeNotifier) {
+    return customLargeButton(
+        onTap: () {},
+        marginVertical: 10.0,
+        marginHorizontal: 15.0,
+        text: 'Get Started',
+        width: 230,
+        textColor: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
+        fontWeight: FontWeight.w500,
+        textSize: 18.0,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 6), // Horizontal and vertical offset
+            blurRadius: 4, // Spread radius
+            spreadRadius: 2, // Extend the shadow
+          ),
+        ],
+        buttonType: CustomButtonType.textWithPrefixIcon,
+        icon: AppAssets.gmailLogo);
+  }
+
+  SizedBox bannerDescription(BuildContext context) {
+    return SizedBox(
+      width: 225,
+      child: Text(
+        'Join us and discover the best pet in your location',
+        style: Theme.of(context)
+            .textTheme
+            .displaySmall!
+            .copyWith(color: textlightColor),
+        // textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+List<Widget> pages = [
+  const PageSlides(
+    sliderEntity: SliderEntity(
+      highlightText: 'Dream ',
+      imageUrl: AppAssets.landingBanner1,
+      postHighlightText: 'Pet Here',
+      preHighlightText: 'Find Your ',
+    ),
+  ),
+  const PageSlides(
+    sliderEntity: SliderEntity(
+      highlightText: 'Your Company ',
+      imageUrl: AppAssets.landingBanner2,
+      postHighlightText: '',
+      preHighlightText: 'They Need ',
+    ),
+  ),
+  const PageSlides(
+    sliderEntity: SliderEntity(
+      highlightText: 'Cute ',
+      imageUrl: AppAssets.landingBanner3,
+      postHighlightText: 'Pet',
+      preHighlightText: 'Good Environment ',
+    ),
+  ),
+  const PageSlides(
+    sliderEntity: SliderEntity(
+      highlightText: 'Time ',
+      imageUrl: AppAssets.landingBanner4,
+      postHighlightText: 'Be Happy',
+      preHighlightText: 'Spend Quality ',
+    ),
+  ),
+];

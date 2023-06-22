@@ -1,0 +1,38 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "windows": true,
+        ".flutter-plugins": true,
+        ".flutter-plugins-dependencies": true,
+        ".gitignore": true,
+        ".metadata": true,
+        "analysis_options.yaml": true,
+        "petdopter.iml": true,
+        "pubspec.lock": true,
+        "macos": true,
+        "linux": true,
+        ".vscode": true,
+        ".idea": true,
+        ".dart_tool": true
+    },
+    "hide-files.files": [
+        "windows",
+        ".flutter-plugins",
+        ".flutter-plugins-dependencies",
+        ".gitignore",
+        ".metadata",
+        "analysis_options.yaml",
+        "petdopter.iml",
+        "pubspec.lock",
+        "macos",
+        "linux",
+        ".vscode",
+        ".idea",
+        ".dart_tool"
+    ]
+}

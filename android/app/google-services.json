@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1010380121613",
+    "project_id": "petdopter",
+    "storage_bucket": "petdopter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010380121613:android:c8eec6410f518c7f88d744",
+        "android_client_info": {
+          "package_name": "com.petdopter.petdopter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010380121613-a9s08rbrap4bteh4j79bthacnc5tfave.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petdopter.petdopter",
+            "certificate_hash": "e193acf2cd176de89b9c1592d509452793a3e1af"
+          }
+        },
+        {
+          "client_id": "1010380121613-gsnt9kdnngopge3e9097h2fur2i97d5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn3B4wwodL8jl49wJuJkk05mZWq_rmA5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010380121613-gsnt9kdnngopge3e9097h2fur2i97d5c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1010380121613-7irtdntjfk923mlu91kvas1vi9opd1sd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.petdopter.petdopter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
