@@ -41,4 +41,14 @@ class AuthRepositroyImpl implements AuthRepositroy {
       return right(FirebaseAuthFailure(statusCode: 500, e: e));
     }
   }
+
+  @override
+  Future<Either<bool, Failure>> loggOut() async {
+    try {
+      await googleSignIn.signOut();
+      return left(true);
+    } catch (e) {
+      return right(GeneralFailure(statusCode: 200));
+    }
+  }
 }

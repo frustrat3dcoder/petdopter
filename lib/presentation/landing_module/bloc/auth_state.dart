@@ -23,3 +23,5 @@ class AuthError extends AuthState {
 
   const AuthError({required this.failure});
 }
+
+class LoggedOut extends AuthState {}

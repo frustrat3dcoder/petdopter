@@ -32,5 +32,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (failure) => emit(AuthError(failure: failure)),
       );
     });
+
+    on<LoggedOutUserEvent>((event, emit) async {
+      //emitting loading state
+      emit(AuthLoading());
+      //extends the use case and call the function
+      final result = await _authUseCase.authenticateWithGoogle();
+
+      // after result pass on the value as per state using fold
+      result.fold(
+        (authEntity) {
+          emit(LoggedOut());
+          di<HiveService>().deleteValue('userEntity');
+        },
+        (failure) => emit(AuthError(failure: failure)),
+      );
+    });
   }
 }

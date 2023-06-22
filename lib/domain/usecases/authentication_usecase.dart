@@ -5,6 +5,7 @@ import 'package:petdopter/domain/repository/auth_repository.dart';
 
 abstract class AuthenticationUseCase {
   Future<Either<UserEntity, Failure>> authenticateWithGoogle();
+  Future<Either<bool, Failure>> logout();
 }
 
 class UserAuthUseCase extends AuthenticationUseCase {
@@ -15,6 +16,12 @@ class UserAuthUseCase extends AuthenticationUseCase {
   @override
   Future<Either<UserEntity, Failure>> authenticateWithGoogle() async {
     final result = await repositroy.signInWithGmail();
+    return result;
+  }
+
+  @override
+  Future<Either<bool, Failure>> logout() async {
+    final result = await repositroy.loggOut();
     return result;
   }
 }
