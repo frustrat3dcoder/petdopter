@@ -11,6 +11,9 @@ final secondaryOrange = HexColor('#FFE9C2');
 final textDarkColor = HexColor('#03063A');
 final textlightColor = HexColor('#70717B');
 
+final charcolColor_60 = HexColor('#949595');
+final kAppBarBgColor = HexColor('#111211');
+
 final blueGradient = [
   kButtonBlue,
   kButtonBlue,

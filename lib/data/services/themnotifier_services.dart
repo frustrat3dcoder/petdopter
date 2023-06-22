@@ -7,6 +7,7 @@ final darkTheme = ThemeData(
   hintColor: Colors.white, scaffoldBackgroundColor: Colors.black,
   // accentIconTheme: IconThemeData(color: Colors.black),
   dividerColor: Colors.black12,
+
   fontFamily: 'Gilroy',
   textTheme: TextTheme(
     displayLarge: customTextStyle(
@@ -35,10 +36,12 @@ final darkTheme = ThemeData(
       fontSize: 14.0,
     ),
   ),
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
-    background: Colors.black,
-    brightness: Brightness.dark,
-  ),
+  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+      .copyWith(
+        background: kAppBarBgColor,
+        brightness: Brightness.dark,
+      )
+      .copyWith(background: kAppBarBgColor),
 );
 
 final lightTheme = ThemeData(
@@ -79,7 +82,9 @@ final lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: Colors.grey,
       brightness: Brightness.light,
-    ).copyWith(background: const Color(0xFFE5E5E5)));
+    )
+        .copyWith(background: const Color(0xFFE5E5E5))
+        .copyWith(background: kWhiteColor));
 
 class ThemeNotifier with ChangeNotifier {
   ThemeData _themeData;

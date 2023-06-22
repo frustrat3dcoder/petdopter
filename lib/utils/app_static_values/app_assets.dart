@@ -31,4 +31,7 @@ class AppAssets {
   static const String settingsBorder1Svg = 'assets/icons/settings-border1.svg';
   static const String settingSvg = 'assets/icons/setting.svg';
   static const String tutrleSvg = 'assets/icons/turtle.svg';
+  static const String bottomNavItem1 = 'assets/icons/bottomtab_1.svg';
+  static const String bottomNavItem2 = 'assets/icons/bottomtab_2.svg';
+  static const String bottomNavItem3 = 'assets/icons/bottomtab_3.svg';
 }
