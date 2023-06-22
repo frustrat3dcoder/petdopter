@@ -11,11 +11,11 @@ class HiveService {
     box.put(key, value);
   }
 
-  retrieveValue(String boxName, String key) {
+  retrieveValue(String key) {
     return box.get(key);
   }
 
-  void deleteValue(String boxName, String key) {
+  void deleteValue(String key) {
     box.delete(key);
   }
 

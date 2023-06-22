@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (authEntity) {
           emit(AuthLoaded(userEntity: authEntity));
           di<HiveService>().storeValue(
-              AppStrings.hiveBoxName, 'userEntity', authEntity.toString());
+              AppStrings.hiveBoxName, 'userEntity', jsonEncode(authEntity));
         },
         (failure) => emit(AuthError(failure: failure)),
       );
