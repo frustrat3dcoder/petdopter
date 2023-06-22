@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petdopter/common_widgets/custom_buttons.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/entities/user_entity.dart';
 import 'package:petdopter/presentation/landing_module/bloc/auth_bloc.dart';
+import 'package:petdopter/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreenWrapper extends StatelessWidget {
   const ProfileScreenWrapper({super.key});
@@ -45,6 +48,130 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: themeNotifier.isDarkMode ? secondaryOrange : Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: double.infinity,
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              50.h,
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          border: Border.all(
+                              color: themeNotifier.isDarkMode
+                                  ? kWhiteColor
+                                  : textDarkColor)),
+                      width: double.infinity,
+                      height: 180,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.network(
+                              'https://steamuserimages-a.akamaihd.net/ugc/937215911992753009/B3CCF0C4675B864CEA6901B46FCFA40A5A9A98FD/',
+                              fit: BoxFit.contain))),
+                  Positioned(
+                    bottom: -60,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: NetworkImage(userEntity.profileImage),
+                        ),
+                      ),
+                      width: 140,
+                      height: 140,
+                    ),
+                  )
+                ],
+              ),
+              100.h,
+              Container(
+                decoration: BoxDecoration(
+                    color: themeNotifier.isDarkMode
+                        ? secondaryOrange
+                        : textDarkColor,
+                    borderRadius: BorderRadius.circular(22.0)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildTile("Name", userEntity.name, themeNotifier),
+                    Divider(
+                      color: themeNotifier.isDarkMode
+                          ? Colors.grey
+                          : textDarkColor,
+                      thickness: 2,
+                    ),
+                    buildTile("Email", userEntity.email, themeNotifier),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              buildLogoutButton(themeNotifier),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTile(String label, String title, ThemeNotifier themeNotifier) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            maxLines: 2,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor),
+          ),
+          5.h,
+          Text(
+            title,
+            maxLines: 2,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
+                fontSize: 16.0),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLogoutButton(ThemeNotifier themeNotifier) {
+    return customLargeButton(
+      onTap: () => BlocProvider.of<AuthBloc>(context).add(LoggedOutUserEvent()),
+      marginVertical: 10.0,
+      marginHorizontal: 15.0,
+      text: 'Logout',
+      width: 230,
+      textColor: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
+      fontWeight: FontWeight.w500,
+      textSize: 18.0,
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black26,
+          offset: Offset(0, 6), // Horizontal and vertical offset
+          blurRadius: 4, // Spread radius
+          spreadRadius: 2, // Extend the shadow
+        ),
+      ],
+      buttonType: CustomButtonType.text,
+    );
   }
 }

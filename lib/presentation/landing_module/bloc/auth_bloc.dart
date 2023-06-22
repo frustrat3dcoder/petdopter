@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:petdopter/core/core.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
@@ -28,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthLoaded(userEntity: authEntity));
           di<HiveService>().storeValue(
               AppStrings.hiveBoxName, 'userEntity', jsonEncode(authEntity));
+          Get.offAllNamed(Routes.dashboardScreen);
         },
         (failure) => emit(AuthError(failure: failure)),
       );
@@ -44,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (authEntity) {
           emit(LoggedOut());
           di<HiveService>().deleteValue('userEntity');
+          Get.offAllNamed(Routes.landingScreen);
         },
         (failure) => emit(AuthError(failure: failure)),
       );
