@@ -31,8 +31,7 @@ class _DashboardState extends State<Dashboard> {
         children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:
-            themeNotifier.isDarkMode ? primaryYellow : textDarkColor,
+        backgroundColor: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
         showSelectedLabels: false,
         elevation: 5,
         showUnselectedLabels: false,
@@ -78,9 +77,9 @@ class _DashboardState extends State<Dashboard> {
 
   getColorbyIndex(int i, ThemeNotifier themeNotifier) {
     if (themeNotifier.isDarkMode) {
-      return _currentIndex == i ? Colors.black : Colors.black.withOpacity(0.8);
-    } else {
       return _currentIndex == i ? Colors.white : Colors.white.withOpacity(0.8);
+    } else {
+      return _currentIndex == i ? Colors.black : Colors.black.withOpacity(0.8);
     }
   }
 }

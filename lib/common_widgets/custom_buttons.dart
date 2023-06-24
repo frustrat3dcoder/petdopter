@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petdopter/utils/utils.dart';
 
-Widget customLargeButton({
-  required double marginVertical,
-  required double marginHorizontal,
-  double? width,
-  double? height,
-  double? textSize,
-  Color? textColor,
-  FontWeight? fontWeight,
-  double? paddingVertical,
-  double? paddingHorizontal,
-  required String text,
-  required VoidCallback onTap,
-  List<Color>? gradientColor,
-  String? icon,
-  List<BoxShadow>? boxShadow,
-  CustomButtonType buttonType = CustomButtonType.text,
-}) {
+Widget customLargeButton(
+    {required double marginVertical,
+    required double marginHorizontal,
+    double? width,
+    double? height,
+    double? textSize,
+    Color? textColor,
+    FontWeight? fontWeight,
+    double? paddingVertical,
+    double? paddingHorizontal,
+    required String text,
+    required VoidCallback onTap,
+    List<Color>? gradientColor,
+    String? icon,
+    List<BoxShadow>? boxShadow,
+    CustomButtonType buttonType = CustomButtonType.text,
+    Color? iconColor}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -42,12 +42,12 @@ Widget customLargeButton({
         horizontal: paddingHorizontal ?? 10.0,
       ),
       child: buildButtonAsPerType(
-        buttonType: buttonType,
-        icon: icon,
-        text: text,
-        textColor: textColor,
-        fontWeight: fontWeight,
-      ),
+          buttonType: buttonType,
+          icon: icon,
+          text: text,
+          textColor: textColor,
+          fontWeight: fontWeight,
+          iconColor: iconColor),
     ),
   );
 }
@@ -58,24 +58,22 @@ buildButtonAsPerType(
     textSize,
     Color? textColor,
     FontWeight? fontWeight,
-    String? text}) {
+    String? text,
+    Color? iconColor}) {
   if (buttonType == CustomButtonType.onlyIcon) {
     return Center(
-        child: SvgPicture.asset(
-      icon ?? AppAssets.defaultPetIcon,
-      alignment: Alignment.center,
-    ));
+        child: SvgPicture.asset(icon ?? AppAssets.defaultPetIcon,
+            alignment: Alignment.center, color: iconColor ?? Colors.white));
   } else if (buttonType == CustomButtonType.textWithPrefixIcon) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-          icon ?? AppAssets.defaultPetIcon,
-          alignment: Alignment.center,
-          width: 30,
-        ),
+        Image.asset(icon ?? AppAssets.defaultPetIcon,
+            alignment: Alignment.center,
+            width: 30,
+            color: iconColor ?? Colors.white),
         10.w,
         Text(
           text!,
@@ -103,6 +101,7 @@ buildButtonAsPerType(
           icon ?? AppAssets.defaultPetIcon,
           alignment: Alignment.center,
           width: 30,
+          color: iconColor ?? Colors.white,
         ),
       ],
     );

@@ -10,7 +10,7 @@ class AppAssets {
   static const String landingBanner = 'assets/images/landing_banner.png';
   static const String bluePawPrint = 'assets/images/blue_paw.png';
   static const String orangePawPrint = 'assets/images/orange_paw.png';
-  static const String tealPawPrint = 'assets/images/teal_paw.png';
+  static const String tealPawPrint = 'assets/images/paw_teal.png';
   static const String gmailLogo = 'assets/images/gmail_logo.png';
 
   //svg
@@ -34,4 +34,5 @@ class AppAssets {
   static const String bottomNavItem1 = 'assets/icons/bottomtab_1.svg';
   static const String bottomNavItem2 = 'assets/icons/bottomtab_2.svg';
   static const String bottomNavItem3 = 'assets/icons/bottomtab_3.svg';
+  static const String searchIcon = 'assets/icons/search_icon.svg';
 }

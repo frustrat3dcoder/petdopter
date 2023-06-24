@@ -9,7 +9,10 @@ final fakePetData = [
     "traits": ["active"],
     "age": 1,
     "sex": "Female",
-    "weight": "200 Gm"
+    "weight": "200 Gm",
+    "status": 0,
+    "price": 200,
+    "id": 'adasdadasd'
   },
   {
     "name": "RicoB",

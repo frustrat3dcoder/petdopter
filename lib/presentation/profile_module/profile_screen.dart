@@ -10,8 +10,6 @@ import 'package:petdopter/presentation/landing_module/bloc/auth_bloc.dart';
 import 'package:petdopter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class ProfileScreenWrapper extends StatelessWidget {
   const ProfileScreenWrapper({super.key});
 
@@ -58,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       extendBody: true,
       body: SafeArea(
         child: Container(
-          color: themeNotifier.isDarkMode ? primaryYellow : textDarkColor,
+          color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           width: double.infinity,
           child: Column(
@@ -70,7 +68,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12.0)),
                           border: Border.all(color: kWhiteColor)),
                       width: double.infinity,
                       height: 180,
@@ -101,8 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 decoration: BoxDecoration(
                     color: themeNotifier.isDarkMode
-                        ? secondaryOrange
-                        : textDarkColorComplement,
+                        ? textDarkColorComplement
+                        : Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(22.0)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             maxLines: 2,
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor),
+                color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor),
           ),
           5.h,
           Text(
@@ -152,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             maxLines: 2,
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
+                color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
                 fontSize: 16.0),
           ),
         ],
@@ -172,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             maxLines: 2,
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor),
+                color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor),
           ),
           5.h,
           Padding(

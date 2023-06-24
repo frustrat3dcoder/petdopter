@@ -5,6 +5,7 @@ import 'package:petdopter/data/data.dart';
 import 'package:petdopter/utils/app_static_values/app_color_pallete.dart';
 import 'package:petdopter/utils/extensions/extensions.dart';
 import 'package:petdopter/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -22,12 +23,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     checkAuthSession(context);
     return Scaffold(
       body: Container(
         width: SizeConfig.screenWidth,
         height: SizeConfig.screenHeight,
-        color: const Color(0xff3BA4B3),
+        color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -37,7 +40,8 @@ class SplashScreen extends StatelessWidget {
             Text(
               'Petdopter',
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: kWhiteColor,
+                    color:
+                        themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
                     fontSize: 44.0,
                     fontWeight: FontWeight.w700,
                   ),
@@ -46,7 +50,8 @@ class SplashScreen extends StatelessWidget {
             Text(
               'Search - Visit - Adopt',
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: kWhiteColor,
+                    color:
+                        themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
                     fontSize: 16.0,
                   ),
             )
