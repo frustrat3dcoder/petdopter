@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     SizeConfig().init(context);
     return GetMaterialApp(
       title: 'Petdopter',

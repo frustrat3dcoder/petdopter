@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petdopter/data/injectors/dependency_injector.dart';
 import 'package:petdopter/utils/utils.dart';
+
+import 'hive_service.dart';
 
 final darkTheme = ThemeData(
   primaryColor: Colors.black,
@@ -88,15 +91,26 @@ final lightTheme = ThemeData(
 
 class ThemeNotifier with ChangeNotifier {
   ThemeData _themeData;
+  HiveService hiveService = di<HiveService>();
 
-  ThemeNotifier(this._themeData);
+  ThemeNotifier(this._themeData) {
+    setMode();
+  }
 
   getTheme() => _themeData;
 
-  setTheme(ThemeData themeData) async {
-    _themeData = themeData;
+  changeThemeMode(bool mode) async {
+    isDarkMode = mode;
+    hiveService.storeValue('isDarkMode', mode);
+    _themeData = isDarkMode ? darkTheme : lightTheme;
     notifyListeners();
   }
 
   bool isDarkMode = true;
+
+  setMode() {
+    bool value = hiveService.retrieveValue('isDarkMode') ?? true;
+    isDarkMode = value;
+    notifyListeners();
+  }
 }

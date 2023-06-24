@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petdopter/data/data.dart';
@@ -16,7 +14,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController();
   List<Widget> pages = const [
     HomeScreenWrapper(),
     AdoptionHistoryScreenWrapper(),
@@ -35,47 +32,42 @@ class _DashboardState extends State<Dashboard> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:
-            themeNotifier.isDarkMode ? secondaryOrange : Colors.white,
+            themeNotifier.isDarkMode ? primaryYellow : textDarkColor,
         showSelectedLabels: false,
         elevation: 5,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: kWhiteColor,
         unselectedItemColor: charcolColor_60,
-        selectedIconTheme: IconThemeData(size: 20, color: kWhiteColor),
-        unselectedIconTheme:
-            IconThemeData(size: 16, color: kWhiteColor.withOpacity(0.6)),
+        // selectedIconTheme: const IconThemeData(size: 20, color: kWhiteColor),
+        // unselectedIconTheme:
+        //     IconThemeData(size: 16, color: kWhiteColor.withOpacity(0.6)),
         currentIndex: _currentIndex,
         iconSize: 30,
         onTap: (int index) {
           setState(() {
             _currentIndex = index;
-            // _pageController.animateToPage(
-            //   index,
-            //   duration: const Duration(milliseconds: 300),
-            //   curve: Curves.easeInOut,
-            // );
           });
         },
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AppAssets.bottomNavItem1,
-              color: getColorbyIndex(0),
+              color: getColorbyIndex(0, themeNotifier),
             ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AppAssets.bottomNavItem2,
-              color: getColorbyIndex(1),
+              color: getColorbyIndex(1, themeNotifier),
             ),
             label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AppAssets.bottomNavItem3,
-              color: getColorbyIndex(2),
+              color: getColorbyIndex(2, themeNotifier),
             ),
             label: 'Profile',
           ),
@@ -84,7 +76,11 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  getColorbyIndex(int i) {
-    return _currentIndex == i ? Colors.black : Colors.black.withOpacity(0.8);
+  getColorbyIndex(int i, ThemeNotifier themeNotifier) {
+    if (themeNotifier.isDarkMode) {
+      return _currentIndex == i ? Colors.black : Colors.black.withOpacity(0.8);
+    } else {
+      return _currentIndex == i ? Colors.white : Colors.white.withOpacity(0.8);
+    }
   }
 }

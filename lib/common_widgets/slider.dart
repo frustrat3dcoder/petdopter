@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
 import 'package:petdopter/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class PageSlides extends StatelessWidget {
   const PageSlides({super.key, required this.sliderEntity});
@@ -9,6 +11,8 @@ class PageSlides extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return SizedBox(
       width: SizeConfig.screenWidth,
       height: 500,
@@ -19,13 +23,13 @@ class PageSlides extends StatelessWidget {
           20.h,
           buildBannerImage(),
           50.h,
-          bannerTitle(context),
+          bannerTitle(context, themeNotifier),
         ],
       ),
     );
   }
 
-  RichText bannerTitle(BuildContext context) {
+  RichText bannerTitle(BuildContext context, ThemeNotifier themeNotifier) {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
@@ -33,7 +37,7 @@ class PageSlides extends StatelessWidget {
         style: Theme.of(context).textTheme.displayLarge!.copyWith(
               fontSize: 36.0,
               fontWeight: FontWeight.w900,
-              color: textDarkColor,
+              color: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
             ),
         children: [
           TextSpan(
@@ -49,7 +53,9 @@ class PageSlides extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                       fontSize: 36.0,
                       fontWeight: FontWeight.w900,
-                      color: textDarkColor,
+                      color: themeNotifier.isDarkMode
+                          ? textDarkColor
+                          : kWhiteColor,
                     ),
               )
             ],

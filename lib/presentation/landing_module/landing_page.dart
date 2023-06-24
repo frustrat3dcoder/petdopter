@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petdopter/common_widgets/theme_switcher.dart';
 import 'package:petdopter/common_widgets/widgets.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
@@ -67,19 +68,26 @@ class _LandingPageState extends State<LandingPage> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       body: SafeArea(
         child: Container(
-          color: themeNotifier.isDarkMode ? secondaryOrange : Colors.white,
+          color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
+          child: Stack(
             children: [
-              20.h,
-              bannerPageView(),
-              const Spacer(),
-              bannerDescription(context),
-              10.h,
-              buildContinueButton(themeNotifier),
-              dotIndicatorWidget()
+              Column(
+                children: [
+                  20.h,
+                  bannerPageView(),
+                  const Spacer(),
+                  bannerDescription(context),
+                  10.h,
+                  buildContinueButton(themeNotifier),
+                  dotIndicatorWidget(themeNotifier)
+                ],
+              ),
+              Positioned(right: 0, child: themeSwitcherButton(themeNotifier))
             ],
           ),
         ),
@@ -87,7 +95,7 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget dotIndicatorWidget() {
+  Widget dotIndicatorWidget(ThemeNotifier themeNotifier) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List<Widget>.generate(pages.length, (int index) {
@@ -99,8 +107,12 @@ class _LandingPageState extends State<LandingPage> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: (index == _currentPage)
-                      ? Colors.orange[700]
-                      : Colors.white54));
+                      ? themeNotifier.isDarkMode
+                          ? primaryYellow
+                          : textDarkColorComplement
+                      : themeNotifier.isDarkMode
+                          ? textDarkColorComplement
+                          : primaryYellow));
         }));
   }
 

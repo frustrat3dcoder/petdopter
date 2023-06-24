@@ -7,7 +7,7 @@ class HiveService {
     box = await Hive.openBox(boxName);
   }
 
-  void storeValue(String boxName, String key, String value) {
+  void storeValue(String key, dynamic value) {
     box.put(key, value);
   }
 

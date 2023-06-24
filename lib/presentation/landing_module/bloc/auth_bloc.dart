@@ -27,8 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       result.fold(
         (authEntity) {
           emit(AuthLoaded(userEntity: authEntity));
-          di<HiveService>().storeValue(
-              AppStrings.hiveBoxName, 'userEntity', jsonEncode(authEntity));
+          di<HiveService>().storeValue('userEntity', jsonEncode(authEntity));
           Get.offAllNamed(Routes.dashboardScreen);
         },
         (failure) => emit(AuthError(failure: failure)),
