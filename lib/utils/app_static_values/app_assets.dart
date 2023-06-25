@@ -35,4 +35,6 @@ class AppAssets {
   static const String bottomNavItem2 = 'assets/icons/bottomtab_2.svg';
   static const String bottomNavItem3 = 'assets/icons/bottomtab_3.svg';
   static const String searchIcon = 'assets/icons/search_icon.svg';
+  static const String paw_group = 'assets/icons/paw_group.svg';
+  static const String customBackArrow = 'assets/icons/custom_back_arrow.svg';
 }
