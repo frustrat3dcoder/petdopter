@@ -197,13 +197,14 @@ class _HomeScreenState extends State<HomeScreen>
   Widget petFilterButtons(ThemeNotifier themeNotifier) {
     return SizedBox(
       width: SizeConfig.screenWidth,
-      height: 100,
+      height: 110,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           commonSvgButton(
-              callback: () => changeFilter(left: 'recommended', right: true),
+              callback: () => changeFilter(left: '', right: ''),
               assetName: AppAssets.petBorderSvg,
+              filterName: 'All',
               height: 80,
               width: 80,
               marginHorizontal: 5.0,
@@ -212,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen>
           commonSvgButton(
               callback: () => changeFilter(left: 'type', right: "Dog"),
               assetName: AppAssets.dogSvg,
+              filterName: 'Dog',
               height: 80,
               width: 80,
               marginHorizontal: 5.0,
@@ -220,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen>
           commonSvgButton(
               callback: () => changeFilter(left: "type", right: "Cat"),
               assetName: AppAssets.catSvg,
+              filterName: 'Cat',
               height: 80,
               width: 80,
               marginHorizontal: 5.0,
@@ -228,6 +231,7 @@ class _HomeScreenState extends State<HomeScreen>
           commonSvgButton(
               callback: () => changeFilter(left: "type", right: "Bird"),
               assetName: AppAssets.parrotSvg,
+              filterName: 'Bird',
               height: 80,
               width: 80,
               marginHorizontal: 5.0,
@@ -265,26 +269,36 @@ class _HomeScreenState extends State<HomeScreen>
   commonSvgButton(
       {required Function() callback,
       required String assetName,
+      required String filterName,
       required double width,
       required double height,
       required ThemeNotifier themeNotifier,
       double marginVertical = 5.0,
       double marginHorizontal = 5.0}) {
-    return customLargeButton(
-      marginVertical: marginVertical,
-      marginHorizontal: marginHorizontal,
-      text: '',
-      onTap: callback,
-      icon: assetName,
-      buttonType: CustomButtonType.onlyIcon,
-      width: width,
-      height: height,
-      gradientColor: themeNotifier.isDarkMode
-          ? [kWhiteColor, kWhiteColor]
-          : [Colors.grey.withOpacity(0.5), Colors.grey.withOpacity(0.5)],
-      paddingHorizontal: 5,
-      paddingVertical: 5,
-      iconColor: textDarkColor,
+    return Column(
+      children: [
+        customLargeButton(
+          marginVertical: marginVertical,
+          marginHorizontal: marginHorizontal,
+          text: '',
+          onTap: callback,
+          icon: assetName,
+          buttonType: CustomButtonType.onlyIcon,
+          width: width,
+          height: height,
+          gradientColor: themeNotifier.isDarkMode
+              ? [kWhiteColor, kWhiteColor]
+              : [Colors.grey.withOpacity(0.5), Colors.grey.withOpacity(0.5)],
+          paddingHorizontal: 5,
+          paddingVertical: 5,
+          iconColor: textDarkColor,
+        ),
+        Text(
+          filterName,
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+              color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor),
+        )
+      ],
     );
   }
 }

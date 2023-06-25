@@ -13,11 +13,17 @@ class FetchPetDataRepositoryImpl extends FetchAnimalDataRepository {
       required dynamic rightComparatorValue,
       required int limit}) async {
     try {
-      final QuerySnapshot<Map<String, dynamic>> result = await _firestore
-          .collection('pet_data')
-          .limit(limit)
-          .where(leftComprator, isEqualTo: rightComparatorValue)
-          .get();
+      late QuerySnapshot<Map<String, dynamic>> result;
+      Query<Map<String, dynamic>> temp =
+          _firestore.collection('pet_data').limit(limit);
+      if (leftComprator != '') {
+        result = await temp
+            .where(leftComprator, isEqualTo: rightComparatorValue)
+            .get();
+      } else {
+        result = await temp.get();
+      }
+
       final List<AnimalEntity> animalEntity = [];
       result.docs.forEach((element) {
         animalEntity.add(AnimalEntity.fromJson(element.data()));
