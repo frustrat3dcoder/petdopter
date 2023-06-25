@@ -16,6 +16,7 @@ class PetInfoHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -29,6 +30,7 @@ class PetInfoHeader extends StatelessWidget {
             ),
           ],
         ),
+        5.h,
         Text(
           "Bread : ${animalEntity.breed!}",
           style: customTextStyle(

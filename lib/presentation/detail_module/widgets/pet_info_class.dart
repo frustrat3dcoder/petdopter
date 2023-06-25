@@ -48,7 +48,7 @@ class InfoContainer extends StatelessWidget {
               PetInfoWidget(
                   animalEntity: animalEntity, themeNotifier: themeNotifier),
 
-              30.h,
+              80.h,
             ],
           ),
         ),
