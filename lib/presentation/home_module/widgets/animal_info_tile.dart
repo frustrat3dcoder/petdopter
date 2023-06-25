@@ -38,6 +38,11 @@ class AnimalInfoTile extends StatelessWidget {
                   color: color,
                   image: DecorationImage(
                       image: AssetImage(assetName),
+                      colorFilter: ColorFilter.mode(
+                          document.status == 0
+                              ? color
+                              : Colors.black.withOpacity(0.8),
+                          BlendMode.srcATop),
                       alignment: Alignment.bottomLeft),
                   borderRadius: BorderRadius.circular(25.0)),
             ),

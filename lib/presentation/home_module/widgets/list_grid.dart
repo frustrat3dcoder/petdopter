@@ -56,7 +56,9 @@ class BuildAsperSnapShot extends StatelessWidget {
               child: AnimalInfoTile(
                 animalEntity: document,
                 assetName: imagePaths[randomIndex].keys.first,
-                color: imagePaths[randomIndex].values.first,
+                color: document.status == 0
+                    ? imagePaths[randomIndex].values.first
+                    : Colors.grey.withOpacity(0.4),
                 themeNotifier: themeNotifier,
               ),
             ),
