@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:get/get.dart';
 
 class AnimalEntityList extends Equatable {
   const AnimalEntityList({
@@ -51,7 +52,7 @@ class AnimalEntity extends Equatable {
 
   factory AnimalEntity.fromJson(Map<String, dynamic> json) {
     return AnimalEntity(
-      name: json["name"],
+      name: json["name"].toString().capitalizeFirst.toString(),
       bio: json["bio"],
       imageUrl: json["image-url"],
       breed: json["breed"],

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -262,6 +263,19 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
       ),
+      actions: [
+        commonSvgButton(
+            callback: () => Get.toNamed(Routes.searchScreen,
+                arguments: {"userEntity": userEntity}),
+            assetName: AppAssets.searchIcon,
+            filterName: '',
+            height: 40,
+            width: 40,
+            marginHorizontal: 5.0,
+            marginVertical: 5.0,
+            themeNotifier: themeNotifier),
+        20.w,
+      ],
       toolbarHeight: 60,
     );
   }
@@ -293,11 +307,12 @@ class _HomeScreenState extends State<HomeScreen>
           paddingVertical: 5,
           iconColor: textDarkColor,
         ),
-        Text(
-          filterName,
-          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor),
-        )
+        if (filterName != '')
+          Text(
+            filterName,
+            style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor),
+          )
       ],
     );
   }

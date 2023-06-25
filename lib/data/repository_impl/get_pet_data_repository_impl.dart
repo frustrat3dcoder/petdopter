@@ -14,8 +14,10 @@ class FetchPetDataRepositoryImpl extends FetchAnimalDataRepository {
       required int limit}) async {
     try {
       late QuerySnapshot<Map<String, dynamic>> result;
-      Query<Map<String, dynamic>> temp =
-          _firestore.collection('pet_data').limit(limit);
+      Query<Map<String, dynamic>> temp = _firestore.collection('pet_data');
+      if (limit != 0) {
+        temp.limit(limit);
+      }
       if (leftComprator != '') {
         result = await temp
             .where(leftComprator, isEqualTo: rightComparatorValue)
