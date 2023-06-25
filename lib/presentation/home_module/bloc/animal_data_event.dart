@@ -8,7 +8,7 @@ abstract class AnimalDataEvent extends Equatable {
 }
 
 class FetchDataByFilters extends AnimalDataEvent {
-  FetchDataByFilters(
+  const FetchDataByFilters(
       {required this.leftComparator,
       required this.rightComparator,
       required this.limit});

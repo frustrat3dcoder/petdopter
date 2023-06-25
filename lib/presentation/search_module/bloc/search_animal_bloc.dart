@@ -6,8 +6,6 @@ part 'search_animal_state.dart';
 
 class SearchAnimalBloc extends Bloc<SearchAnimalEvent, SearchAnimalState> {
   SearchAnimalBloc() : super(SearchAnimalInitial()) {
-    on<SearchAnimalEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SearchAnimalEvent>((event, emit) {});
   }
 }

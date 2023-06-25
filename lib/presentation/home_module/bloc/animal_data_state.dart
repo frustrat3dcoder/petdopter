@@ -10,9 +10,7 @@ abstract class AnimalDataState extends Equatable {
 class AnimalDataInitial extends AnimalDataState {}
 
 class AnimalDataLoaded extends AnimalDataState {
-  AnimalDataLoaded();
-
-// StreamSink<AnimalEntityList> streamSink = _streamController.sink;
+  const AnimalDataLoaded();
 }
 
 class FailedToLoadData extends AnimalDataState {}

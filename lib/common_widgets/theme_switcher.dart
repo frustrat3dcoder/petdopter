@@ -7,34 +7,11 @@ Widget themeSwitcherButton(ThemeNotifier themeNotifier) {
       onTap: () {
         toggleTheme(themeNotifier);
       },
-      child: Container(
-          // width: 70,
-          // height: 30,
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(25),
-          //   color: themeNotifier.isDarkMode ? textDarkColor : primaryYellow,
-          // ),
-          child: Stack(
+      child: Stack(
         alignment: themeNotifier.isDarkMode
             ? Alignment.centerRight
             : Alignment.centerLeft,
         children: [
-          // const Positioned(
-          //   left: 10,
-          //   child: Icon(
-          //     Icons.sunny,
-          //     color: primaryYellow,
-          //     size: 20,
-          //   ),
-          // ),
-          // const Positioned(
-          //   right: 10,
-          //   child: Icon(
-          //     Icons.nightlight,
-          //     color: textDarkColor,
-          //     size: 20,
-          //   ),
-          // ),
           AnimatedAlign(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -56,19 +33,7 @@ Widget themeSwitcherButton(ThemeNotifier themeNotifier) {
             ),
           ),
         ],
-      )));
-
-  // return Switch(
-  //   value: themeNotifier.isDarkMode,
-  //   inactiveThumbColor:
-  //       themeNotifier.isDarkMode ? textDarkColor : primaryYellow,
-  //   activeColor: themeNotifier.isDarkMode ? primaryYellow : textDarkColor,
-  //   activeTrackColor: themeNotifier.isDarkMode ? textDarkColor : primaryYellow,
-  //   inactiveTrackColor: themeNotifier.isDarkMode ? primaryYellow : Colors.grey,
-  //   onChanged: (value) {
-  //     toggleTheme(themeNotifier, value);
-  //   },
-  // );
+      ));
 }
 
 void toggleTheme(ThemeNotifier themeNotifier) {

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petdopter/common_widgets/custom_buttons.dart';
@@ -11,7 +10,6 @@ import 'package:petdopter/domain/entities/animal_entity.dart';
 import 'package:petdopter/domain/entities/user_entity.dart';
 import 'package:petdopter/presentation/home_module/bloc/animal_data_bloc.dart';
 import 'package:petdopter/presentation/home_module/widgets/list_grid.dart';
-import 'package:petdopter/presentation/landing_module/bloc/auth_bloc.dart';
 import 'package:petdopter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen>
   bool isLoading = false;
   late UserEntity userEntity;
   final HiveService hiveService = di<HiveService>();
-  late Stream<AnimalEntityList> _stream;
 
   ScrollController scrollController = ScrollController();
   double scrollOffset = 0.0;
@@ -120,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollController.jumpTo(scrollOffset);
     });
   }

@@ -15,7 +15,6 @@ class GetPetListUseCase extends FetchPetListUseCase {
       : _fetchAnimalDataRepository = fetchAnimalDataRepository;
 
   final FetchAnimalDataRepository _fetchAnimalDataRepository;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Future<List<AnimalEntity>> getPetData(

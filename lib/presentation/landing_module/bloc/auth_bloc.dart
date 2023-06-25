@@ -8,7 +8,6 @@ import 'package:petdopter/core/core.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
 import 'package:petdopter/domain/entities/user_entity.dart';
-import 'package:petdopter/utils/app_static_values/app_static_values.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

@@ -4,10 +4,9 @@ import 'package:equatable/equatable.dart';
 part 'adoption_history_event.dart';
 part 'adoption_history_state.dart';
 
-class AdoptionHistoryBloc extends Bloc<AdoptionHistoryEvent, AdoptionHistoryState> {
+class AdoptionHistoryBloc
+    extends Bloc<AdoptionHistoryEvent, AdoptionHistoryState> {
   AdoptionHistoryBloc() : super(AdoptionHistoryInitial()) {
-    on<AdoptionHistoryEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<AdoptionHistoryEvent>((event, emit) {});
   }
 }
