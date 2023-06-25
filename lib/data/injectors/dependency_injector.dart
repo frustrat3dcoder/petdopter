@@ -11,11 +11,15 @@ void setupLocator() async {
       ));
 
   di.registerFactory<AuthRepositroy>(() => AuthRepositroyImpl());
+  di.registerFactory<AdoptRepository>(() => AdoptPetRepositoryImpl());
+  di.registerFactory<FetchAnimalDataRepository>(
+      () => FetchPetDataRepositoryImpl());
 
   di.registerFactory<GetPetListUseCase>(() => GetPetListUseCase(
         fetchAnimalDataRepository: di(),
       ));
 
-  di.registerFactory<FetchAnimalDataRepository>(
-      () => FetchPetDataRepositoryImpl());
+  di.registerFactory<AdoptPetUseCase>(() => AdoptPetUseCase(
+        adoptRepository: di(),
+      ));
 }

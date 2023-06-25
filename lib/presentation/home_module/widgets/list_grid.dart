@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petdopter/data/data.dart';
+import 'package:petdopter/domain/entities/user_entity.dart';
 
 import '../../../domain/entities/animal_entity.dart';
 import 'animal_info_tile.dart';
@@ -10,10 +11,14 @@ import 'configurations.dart';
 
 class BuildAsperSnapShot extends StatelessWidget {
   const BuildAsperSnapShot(
-      {super.key, required this.snapshot, required this.themeNotifier});
+      {super.key,
+      required this.snapshot,
+      required this.themeNotifier,
+      required this.userEntity});
 
   final AsyncSnapshot<AnimalEntityList> snapshot;
   final ThemeNotifier themeNotifier;
+  final UserEntity userEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class BuildAsperSnapShot extends StatelessWidget {
                 "animalEntity": document,
                 "backgroundAsset": imagePaths[randomIndex].keys.first,
                 "backgroundColor": imagePaths[randomIndex].values.first,
+                "userId": userEntity.id
               }),
               child: AnimalInfoTile(
                 animalEntity: document,

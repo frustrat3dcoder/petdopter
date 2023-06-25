@@ -80,24 +80,12 @@ class _HomeScreenState extends State<HomeScreen>
 
   void _scrollListener() {
     if (scrollController.offset >= scrollController.position.maxScrollExtent) {
-      print("isloading current state is $isLoading");
       if (!isLoading) {
         setState(() {
           isLoading = true;
           scrollOffset = scrollController.offset;
-
           limit += 10;
         });
-        scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
-          content: Text(
-            'Please wait while we fetch more data',
-            style: TextStyle(
-              color: kWhiteColor,
-            ),
-          ),
-          backgroundColor: textDarkColor,
-          duration: const Duration(seconds: 2),
-        ));
         _updateStream(); // Increase limit to fetch more documents
       }
     }
@@ -182,7 +170,10 @@ class _HomeScreenState extends State<HomeScreen>
                         }
                       });
                       return BuildAsperSnapShot(
-                          snapshot: snapshot, themeNotifier: themeNotifier);
+                        snapshot: snapshot,
+                        themeNotifier: themeNotifier,
+                        userEntity: userEntity,
+                      );
                     }),
                 Visibility(
                   visible: isLoading == true,

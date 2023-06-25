@@ -17,7 +17,13 @@ class AdoptPetSuccess extends AdoptPetState {
   List<Object> get props => [];
 }
 
-class AdoptPetError extends AdoptPetState {}
+class AdoptPetError extends AdoptPetState {
+  const AdoptPetError({required this.message});
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+}
 
 class AddPetToUserSuccess extends AdoptPetState {
   const AddPetToUserSuccess({required this.adoptStatus});

@@ -32,6 +32,7 @@ class AnimalEntity extends Equatable {
     required this.status,
     required this.price,
     required this.id,
+    required this.ownerId,
   });
 
   final String? name;
@@ -46,6 +47,7 @@ class AnimalEntity extends Equatable {
   final int? status;
   final int? price;
   final String? id;
+  final String? ownerId;
 
   factory AnimalEntity.fromJson(Map<String, dynamic> json) {
     return AnimalEntity(
@@ -61,6 +63,7 @@ class AnimalEntity extends Equatable {
       status: json["status"],
       price: json["price"],
       id: json["id"],
+      ownerId: json["owner_id"] ?? '',
     );
   }
 

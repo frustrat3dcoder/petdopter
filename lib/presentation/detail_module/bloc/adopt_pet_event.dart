@@ -8,20 +8,26 @@ abstract class AdoptPetEvent extends Equatable {
 }
 
 class UserAdoptPetEvent extends AdoptPetEvent {
-  const UserAdoptPetEvent({required this.animalEntity});
+  const UserAdoptPetEvent(
+      {required this.animalEntity,
+      required this.userId,
+      required this.documentId,
+      required this.updateValue});
 
   final AnimalEntity animalEntity;
+  final String userId;
+  final String documentId;
+  final Map<String, dynamic> updateValue;
 
   @override
-  List<Object> get props => [animalEntity];
+  List<Object> get props => [animalEntity, userId, documentId, updateValue];
 }
 
-class AddPetToUsersRecordEvent extends AdoptPetEvent {
-  const AddPetToUsersRecordEvent(
-      {required this.animalEntity, required this.userId});
-  final AnimalEntity animalEntity;
+class GetUsersPetRecordEvent extends AdoptPetEvent {
+  const GetUsersPetRecordEvent({required this.userId});
+
   final String userId;
 
   @override
-  List<Object> get props => [animalEntity, userId];
+  List<Object> get props => [userId];
 }
