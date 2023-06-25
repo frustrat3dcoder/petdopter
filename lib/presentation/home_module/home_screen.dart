@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petdopter/common_widgets/custom_buttons.dart';
 import 'package:petdopter/data/data.dart';
+import 'package:petdopter/domain/domain.dart';
 import 'package:petdopter/domain/entities/animal_entity.dart';
 import 'package:petdopter/domain/entities/user_entity.dart';
+import 'package:petdopter/presentation/home_module/bloc/animal_data_bloc.dart';
 import 'package:petdopter/presentation/home_module/widgets/list_grid.dart';
 import 'package:petdopter/presentation/landing_module/bloc/auth_bloc.dart';
 import 'package:petdopter/utils/utils.dart';
@@ -19,8 +21,9 @@ class HomeScreenWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthBloc(),
-      child: HomeScreen(),
+      create: (context) =>
+          AnimalDataBloc(fetchPetListUseCase: di<GetPetListUseCase>()),
+      child: const HomeScreen(),
     );
   }
 }
@@ -47,24 +50,18 @@ class _HomeScreenState extends State<HomeScreen>
   String leftHandFilter = "recommended";
   dynamic rightHandFilter = true;
 
+  late AnimalDataBloc _animalBloc;
+
   @override
   void initState() {
     initDataFromLocal();
     super.initState();
     scrollController.addListener(_scrollListener);
-    _stream = FirebaseFirestore.instance
-        .collection('pet_data')
-        .where(leftHandFilter, isEqualTo: rightHandFilter)
-        .limit(limit)
-        .snapshots()
-        .transform(
-      StreamTransformer.fromHandlers(
-        handleData: (snapshot, sink) {
-          final animalList = transformSnapshot(snapshot);
-          sink.add(animalList);
-        },
-      ),
-    );
+    _animalBloc = BlocProvider.of<AnimalDataBloc>(context);
+    _animalBloc.add(FetchDataByFilters(
+        leftComparator: leftHandFilter,
+        rightComparator: rightHandFilter,
+        limit: limit));
   }
 
   void initDataFromLocal() async {
@@ -88,28 +85,22 @@ class _HomeScreenState extends State<HomeScreen>
         setState(() {
           scrollOffset = scrollController.offset;
           isLoading = true;
-          limit += 10; // Increase limit to fetch more documents
+          limit += 10;
         });
-        _updateStream();
+
+        _updateStream(); // Increase limit to fetch more documents
       }
     }
   }
 
   Future<void> _updateStream() async {
     setState(() {
-      _stream = FirebaseFirestore.instance
-          .collection('pet_data')
-          .where(leftHandFilter, isEqualTo: rightHandFilter)
-          .limit(limit)
-          .snapshots()
-          .transform(
-        StreamTransformer.fromHandlers(
-          handleData: (snapshot, sink) {
-            final animalList = transformSnapshot(snapshot);
-            sink.add(animalList);
-          },
-        ),
-      );
+      isSetStateCalledforState = false;
+      _animalBloc.add(FetchDataByFilters(
+          leftComparator: leftHandFilter,
+          rightComparator: rightHandFilter,
+          limit: limit));
+
       isLoading = false;
     });
   }
@@ -124,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   bool get wantKeepAlive => true;
+  bool isSetStateCalledforState = false;
 
   @override
   void didChangeDependencies() {
@@ -133,18 +125,9 @@ class _HomeScreenState extends State<HomeScreen>
     });
   }
 
-  AnimalEntityList transformSnapshot(
-      QuerySnapshot<Map<String, dynamic>> snapshot) {
-    final animalEntityList = AnimalEntityList.fromSnapshot(
-        snapshot.docs.map((doc) => doc.data()).toList());
-
-    return animalEntityList;
-  }
-
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-
     super.build(context);
 
     return Scaffold(
@@ -163,8 +146,15 @@ class _HomeScreenState extends State<HomeScreen>
                 petFilterButtons(themeNotifier),
                 20.h,
                 StreamBuilder<AnimalEntityList>(
-                    stream: _stream,
+                    stream: _animalBloc.streamController.stream,
                     builder: (context, snapshot) {
+                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        if (mounted && isSetStateCalledforState == false) {
+                          setState(() {
+                            isSetStateCalledforState = true;
+                          });
+                        }
+                      });
                       return BuildAsperSnapShot(
                           snapshot: snapshot, themeNotifier: themeNotifier);
                     }),
@@ -186,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen>
         children: [
           commonSvgButton(
               callback: () => changeFilter(left: 'recommended', right: true),
-              assetName: AppAssets.orangePawPrint,
+              assetName: AppAssets.petBorderSvg,
               height: 80,
               width: 80,
               marginHorizontal: 5.0,

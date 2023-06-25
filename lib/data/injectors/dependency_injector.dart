@@ -11,4 +11,11 @@ void setupLocator() async {
       ));
 
   di.registerFactory<AuthRepositroy>(() => AuthRepositroyImpl());
+
+  di.registerFactory<GetPetListUseCase>(() => GetPetListUseCase(
+        fetchAnimalDataRepository: di(),
+      ));
+
+  di.registerFactory<FetchAnimalDataRepository>(
+      () => FetchPetDataRepositoryImpl());
 }
