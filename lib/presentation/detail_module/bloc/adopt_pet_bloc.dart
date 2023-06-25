@@ -15,6 +15,7 @@ class AdoptPetBloc extends Bloc<AdoptPetEvent, AdoptPetState> {
 
       if (result) {
         emit(AdoptPetSuccess(adoptStatus: result));
+        add(GetUsersPetRecordEvent(userId: event.userId));
       } else {
         emit(const AdoptPetError(message: "Something went wrong"));
         add(UserAdoptPetEvent(
@@ -25,6 +26,11 @@ class AdoptPetBloc extends Bloc<AdoptPetEvent, AdoptPetState> {
       }
     });
 
-    on<GetUsersPetRecordEvent>((event, emit) {});
+    on<GetUsersPetRecordEvent>((event, emit) async {
+      final result =
+          await adoptPetUseCase.getAdoptedPetData(userId: event.userId);
+
+      emit(GetUsersPetData(animalEntityList: result));
+    });
   }
 }

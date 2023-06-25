@@ -12,6 +12,7 @@ class AppAssets {
   static const String orangePawPrint = 'assets/images/orange_paw.png';
   static const String tealPawPrint = 'assets/images/paw_teal.png';
   static const String gmailLogo = 'assets/images/gmail_logo.png';
+  static const String noPetData = 'assets/images/no_pet_history.png';
 
   //svg
   static const String defaultPetIcon = 'assets/icons/dog.svg';

@@ -25,7 +25,7 @@ class DetailScreenWrapper extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => AnimalDataBloc(fetchPetListUseCase: di())),
-        BlocProvider(create: (context) => AdoptPetBloc(adoptPetUseCase: di())),
+        BlocProvider(create: (context) => di<AdoptPetBloc>()),
       ],
       child: DetailScreen(arguments: Get.arguments),
     );
@@ -48,6 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
   late Color backgroundColor;
 
   late String userId;
+  String? from;
   late ConfettiController _controllerCenter;
 
   bool isBlocALoaded = false;
@@ -60,6 +61,7 @@ class _DetailScreenState extends State<DetailScreen> {
     backgroundAsset = widget.arguments["backgroundAsset"];
     backgroundColor = widget.arguments["backgroundColor"];
     userId = widget.arguments["userId"];
+    from = widget.arguments["from"];
     BlocProvider.of<AnimalDataBloc>(context).add(FetchDataByFilters(
         leftComparator: 'id', rightComparator: animalEntity.id, limit: 1));
 
@@ -88,7 +90,9 @@ class _DetailScreenState extends State<DetailScreen> {
             clipBehavior: Clip.none,
             children: [
               ImageWidget(
-                  backgroundColor: backgroundColor, animalEntity: animalEntity),
+                  backgroundColor: backgroundColor,
+                  animalEntity: animalEntity,
+                  from: from),
               InfoContainer(
                   themeNotifier: themeNotifier, animalEntity: animalEntity),
               backButton(themeNotifier),
@@ -136,21 +140,23 @@ class _DetailScreenState extends State<DetailScreen> {
                             gradientColor: themeNotifier.isDarkMode
                                 ? [kWhiteColor, kWhiteColor]
                                 : [textDarkColor, textDarkColor],
+                            textColor: themeNotifier.isDarkMode
+                                ? textDarkColor
+                                : kWhiteColor,
                             onTap: () {
                               isBlocALoaded = false;
                               if (adoptStatus == 0) {
                                 setState(() {
                                   isBlocBLoaded = true;
                                 });
-                                BlocProvider.of<AdoptPetBloc>(context)
-                                    .add(UserAdoptPetEvent(
-                                        animalEntity: animalEntity,
-                                        documentId: animalEntity.id!,
-                                        updateValue: {
-                                          "status": 1,
-                                          "owner_id": userId,
-                                        },
-                                        userId: userId));
+                                di<AdoptPetBloc>().add(UserAdoptPetEvent(
+                                    animalEntity: animalEntity,
+                                    documentId: animalEntity.id!,
+                                    updateValue: {
+                                      "status": 1,
+                                      "owner_id": userId,
+                                    },
+                                    userId: userId));
 
                                 BlocProvider.of<AnimalDataBloc>(context).add(
                                     FetchDataByFilters(

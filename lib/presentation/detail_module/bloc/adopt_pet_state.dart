@@ -25,12 +25,12 @@ class AdoptPetError extends AdoptPetState {
   List<Object> get props => [message];
 }
 
-class AddPetToUserSuccess extends AdoptPetState {
-  const AddPetToUserSuccess({required this.adoptStatus});
-  final bool adoptStatus;
+class GetUsersPetData extends AdoptPetState {
+  const GetUsersPetData({required this.animalEntityList});
+  final AnimalEntityList animalEntityList;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [animalEntityList];
 }
 
-class AddAdoptedPetToUserError extends AdoptPetState {}
+class GetUsersPetDataError extends AdoptPetState {}

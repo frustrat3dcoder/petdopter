@@ -10,10 +10,12 @@ class ImageWidget extends StatelessWidget {
     super.key,
     required this.backgroundColor,
     required this.animalEntity,
+    this.from,
   });
 
   final Color backgroundColor;
   final AnimalEntity animalEntity;
+  final String? from;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class ImageWidget extends StatelessWidget {
             ),
           ),
           Hero(
-            tag: animalEntity.id!,
+            tag: from != null ? animalEntity.name! : animalEntity.id!,
             flightShuttleBuilder: (flightContext, animation, flightDirection,
                 fromHeroContext, toHeroContext) {
               switch (flightDirection) {

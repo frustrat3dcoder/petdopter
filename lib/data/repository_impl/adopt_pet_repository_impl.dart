@@ -26,7 +26,7 @@ class AdoptPetRepositoryImpl extends AdoptRepository {
     try {
       final QuerySnapshot<Map<String, dynamic>> result = await _firestore
           .collection('pet_data')
-          .where('ownerId', isEqualTo: userId)
+          .where('owner_id', isEqualTo: userId)
           .get();
       final List<AnimalEntity> animalEntity = [];
       result.docs.forEach((element) {
