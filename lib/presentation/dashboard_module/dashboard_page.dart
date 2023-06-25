@@ -1,11 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petdopter/data/data.dart';
-import 'package:petdopter/domain/entities/user_entity.dart';
-import 'package:petdopter/presentation/detail_module/bloc/adopt_pet_bloc.dart';
 import 'package:petdopter/presentation/presentation.dart';
 import 'package:petdopter/utils/utils.dart';
 import 'package:provider/provider.dart';

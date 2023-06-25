@@ -259,20 +259,6 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       toolbarHeight: 60,
-      actions: [
-        commonSvgButton(
-            callback: () {},
-            assetName: AppAssets.bellSvg,
-            width: 50,
-            height: 50,
-            themeNotifier: themeNotifier),
-        commonSvgButton(
-            callback: () {},
-            assetName: AppAssets.heartFilledSvg,
-            width: 50,
-            height: 50,
-            themeNotifier: themeNotifier),
-      ],
     );
   }
 
