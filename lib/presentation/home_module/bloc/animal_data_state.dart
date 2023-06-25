@@ -10,7 +10,9 @@ abstract class AnimalDataState extends Equatable {
 class AnimalDataInitial extends AnimalDataState {}
 
 class AnimalDataLoaded extends AnimalDataState {
-  const AnimalDataLoaded();
+  const AnimalDataLoaded({required this.animalEntityList});
+
+  final AnimalEntityList animalEntityList;
 }
 
 class FailedToLoadData extends AnimalDataState {}

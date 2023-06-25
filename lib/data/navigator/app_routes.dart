@@ -6,4 +6,5 @@ class Routes {
   static const dashboardScreen = '/dasboard_screen';
   static const searchScreen = '/search_screen';
   static const detailScreen = '/detail_screen';
+  static const imagePreview = '/imagePreview';
 }

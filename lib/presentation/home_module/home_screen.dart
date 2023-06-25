@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:petdopter/common_widgets/custom_buttons.dart';
 import 'package:petdopter/data/data.dart';
 import 'package:petdopter/domain/domain.dart';
@@ -48,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
   dynamic rightHandFilter = true;
 
   late AnimalDataBloc _animalBloc;
+  final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
@@ -78,13 +80,24 @@ class _HomeScreenState extends State<HomeScreen>
 
   void _scrollListener() {
     if (scrollController.offset >= scrollController.position.maxScrollExtent) {
+      print("isloading current state is $isLoading");
       if (!isLoading) {
         setState(() {
-          scrollOffset = scrollController.offset;
           isLoading = true;
+          scrollOffset = scrollController.offset;
+
           limit += 10;
         });
-
+        scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
+          content: Text(
+            'Please wait while we fetch more data',
+            style: TextStyle(
+              color: kWhiteColor,
+            ),
+          ),
+          backgroundColor: textDarkColor,
+          duration: const Duration(seconds: 2),
+        ));
         _updateStream(); // Increase limit to fetch more documents
       }
     }
@@ -97,7 +110,6 @@ class _HomeScreenState extends State<HomeScreen>
           leftComparator: leftHandFilter,
           rightComparator: rightHandFilter,
           limit: limit));
-
       isLoading = false;
     });
   }
@@ -106,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen>
     setState(() {
       leftHandFilter = left;
       rightHandFilter = right;
+      limit = 10;
     });
     _updateStream();
   }
@@ -128,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen>
     super.build(context);
 
     return Scaffold(
+      key: scaffoldMessengerKey,
       backgroundColor: themeNotifier.isDarkMode ? textDarkColor : kWhiteColor,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -139,9 +153,24 @@ class _HomeScreenState extends State<HomeScreen>
           child: SingleChildScrollView(
             controller: scrollController,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 petFilterButtons(themeNotifier),
                 20.h,
+                if (leftHandFilter == 'recommended')
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      leftHandFilter.capitalizeFirst.toString(),
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: themeNotifier.isDarkMode
+                              ? kWhiteColor
+                              : textDarkColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22.0),
+                    ),
+                  ),
+                if (leftHandFilter == 'recommended') 20.h,
                 StreamBuilder<AnimalEntityList>(
                     stream: _animalBloc.streamController.stream,
                     builder: (context, snapshot) {
@@ -155,7 +184,17 @@ class _HomeScreenState extends State<HomeScreen>
                       return BuildAsperSnapShot(
                           snapshot: snapshot, themeNotifier: themeNotifier);
                     }),
-                if (isLoading) const CircularProgressIndicator()
+                Visibility(
+                  visible: isLoading == true,
+                  replacement: const SizedBox.shrink(),
+                  child: const SizedBox(
+                    height: 50,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.red,
+                    )),
+                  ),
+                )
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:petdopter/data/data.dart';
 
 import '../../../domain/entities/animal_entity.dart';
@@ -38,11 +39,21 @@ class BuildAsperSnapShot extends StatelessWidget {
 
           var document = snapshot.data!.entities[index];
 
-          return AnimalInfoTile(
-            animalEntity: document,
-            assetName: imagePaths[randomIndex].keys.first,
-            color: imagePaths[randomIndex].values.first,
-            themeNotifier: themeNotifier,
+          return Hero(
+            tag: document.id!,
+            child: InkWell(
+              onTap: () => Get.toNamed(Routes.detailScreen, arguments: {
+                "animalEntity": document,
+                "backgroundAsset": imagePaths[randomIndex].keys.first,
+                "backgroundColor": imagePaths[randomIndex].values.first,
+              }),
+              child: AnimalInfoTile(
+                animalEntity: document,
+                assetName: imagePaths[randomIndex].keys.first,
+                color: imagePaths[randomIndex].values.first,
+                themeNotifier: themeNotifier,
+              ),
+            ),
           );
         },
       );

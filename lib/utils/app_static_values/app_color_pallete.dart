@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petdopter/utils/utils.dart';
 
 const Color kWhiteColor = Color(0xFFFFFFFF);
 const Color kButtonGrey = Color(0xFFF7F7F8);

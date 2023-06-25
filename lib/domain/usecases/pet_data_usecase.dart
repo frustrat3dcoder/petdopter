@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petdopter/domain/domain.dart';
 import 'package:petdopter/domain/entities/animal_entity.dart';
 

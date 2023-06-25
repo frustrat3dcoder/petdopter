@@ -20,10 +20,14 @@ class AnimalDataBloc extends Bloc<AnimalDataEvent, AnimalDataState> {
       : super(AnimalDataInitial()) {
     _streamSink = streamController.sink;
     on<FetchDataByFilters>((event, emit) async {
+      emit(AnimalDataInitial());
       final animalEntity = await fetchPetListUseCase.getPetData(
           leftComprator: event.leftComparator,
           rightComparatorValue: event.rightComparator,
           limit: event.limit);
+
+      emit(AnimalDataLoaded(
+          animalEntityList: AnimalEntityList(entities: animalEntity)));
 
       _streamSink!.add(AnimalEntityList(entities: animalEntity));
     });
