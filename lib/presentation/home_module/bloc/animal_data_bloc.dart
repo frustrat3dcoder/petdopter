@@ -31,14 +31,6 @@ class AnimalDataBloc extends Bloc<AnimalDataEvent, AnimalDataState> {
 
       _streamSink!.add(AnimalEntityList(entities: animalEntity));
     });
-
-    on<AdoptAnimal>((event, emit) {
-      // extend the use case
-
-      // wait for data
-
-      //emit state
-    });
   }
 
   AnimalEntityList transformSnapshot(

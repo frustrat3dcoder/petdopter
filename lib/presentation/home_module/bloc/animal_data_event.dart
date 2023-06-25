@@ -20,5 +20,3 @@ class FetchDataByFilters extends AnimalDataEvent {
   @override
   List<Object> get props => [];
 }
-
-class AdoptAnimal extends AnimalDataEvent {}

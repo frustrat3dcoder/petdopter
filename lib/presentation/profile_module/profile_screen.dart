@@ -191,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         marginHorizontal: 15.0,
         text: 'Logout',
         width: 230,
-        textColor: themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
+        textColor: !themeNotifier.isDarkMode ? kWhiteColor : textDarkColor,
         fontWeight: FontWeight.w500,
         textSize: 18.0,
         boxShadow: const [
@@ -203,7 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
         buttonType: CustomButtonType.text,
-        gradientColor:
-            themeNotifier.isDarkMode ? orangeGradient : blueGradient);
+        gradientColor: themeNotifier.isDarkMode
+            ? [kWhiteColor, kWhiteColor]
+            : [textDarkColor, textDarkColor]);
   }
 }
