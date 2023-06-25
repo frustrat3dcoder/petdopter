@@ -159,7 +159,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                         limit: 1));
                               }
                             });
-                        ;
                       } else {
                         return SizedBox.shrink();
                       }
